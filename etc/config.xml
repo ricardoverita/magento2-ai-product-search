@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <searchai>
+            <general>
+                <enabled>0</enabled>
+                <assistant_name>AI Assistant</assistant_name>
+                <welcome_message>Hi! Tell me what you're looking for and I'll help you find it.</welcome_message>
+                <input_placeholder>Describe what you are looking for…</input_placeholder>
+                <locations>homepage,product</locations>
+                <max_history>6</max_history>
+            </general>
+            <ai>
+                <provider>openai</provider>
+                <openai_model>gpt-5.6-luna</openai_model>
+                <anthropic_model>claude-fable-5</anthropic_model>
+                <gemini_model>gemini-3.8-flash</gemini_model>
+                <custom_endpoint>/v1/chat/completions</custom_endpoint>
+                <custom_auth_header>Authorization</custom_auth_header>
+                <custom_auth_prefix>Bearer</custom_auth_prefix>
+            </ai>
+            <catalog>
+                <candidate_limit>8</candidate_limit>
+                <use_short_description>1</use_short_description>
+                <include_description>0</include_description>
+                <additional_attributes>brand,color,size,material</additional_attributes>
+                <include_out_of_stock>0</include_out_of_stock>
+            </catalog>
+            <security>
+                <requests_per_minute>10</requests_per_minute>
+                <max_query_length>1000</max_query_length>
+                <provider_timeout>15</provider_timeout>
+                <max_response_bytes>262144</max_response_bytes>
+            </security>
+        </searchai>
+    </default>
+</config>
