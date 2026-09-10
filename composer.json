@@ -2,7 +2,6 @@
     "name": "vera/module-search-ai",
     "description": "AI-assisted product discovery for Magento 2 with Magento-validated product recommendations.",
     "type": "magento2-module",
-    "version": "1.0.0",
     "license": "MIT",
     "homepage": "https://veradesarrollo.com",
     "authors": [
@@ -18,7 +17,7 @@
     "require": {
         "php": "^8.2 || ^8.3 || ^8.4",
         "magento/framework": "^103.0.7",
-        "magento/magento-composer-installer": "*",
+        "magento/magento-composer-installer": "^0.4.0",
         "magento/module-catalog": "^104.0.7",
         "magento/module-catalog-search": "^102.0.7",
         "magento/module-config": "^101.2.7",
