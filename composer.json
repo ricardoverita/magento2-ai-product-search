@@ -1,0 +1,55 @@
+{
+    "name": "vera/module-search-ai",
+    "description": "AI-assisted product discovery for Magento 2 with Magento-validated product recommendations.",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "MIT",
+    "homepage": "https://veradesarrollo.com",
+    "authors": [
+        {
+            "name": "Ricardo Vera",
+            "homepage": "https://github.com/ricardoverita",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ricardoverita",
+        "source": "https://github.com/ricardoverita",
+        "docs": "https://veradesarrollo.com"
+    },
+    "require": {
+        "php": "^8.2 || ^8.3 || ^8.4",
+        "magento/framework": "^103.0.7",
+        "magento/magento-composer-installer": "*",
+        "magento/module-catalog": "^104.0.7",
+        "magento/module-catalog-search": "^102.0.7",
+        "magento/module-config": "^101.2.7",
+        "magento/module-inventory-sales-api": "^1.2",
+        "magento/module-store": "^101.1.7",
+        "magento/module-theme": "^101.1.7"
+    },
+    "require-dev": {
+        "magento/magento-coding-standard": "^33.0",
+        "phpunit/phpunit": "^9.6 || ^10.5"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Vera\\SearchAI\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vera\\SearchAI\\Test\\": "Test/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "magento/magento-composer-installer": true
+        },
+        "sort-packages": true
+    }
+}
+

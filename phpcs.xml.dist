@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Vera SearchAI">
+    <description>Magento 2 coding standard for Vera_SearchAI.</description>
+    <file>Api</file>
+    <file>Block</file>
+    <file>Controller</file>
+    <file>Model</file>
+    <file>Test</file>
+    <file>registration.php</file>
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <rule ref="Magento2"/>
+    <rule ref="PSR12"/>
+</ruleset>
+
