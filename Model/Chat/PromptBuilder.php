@@ -46,6 +46,6 @@ class PromptBuilder
                 . json_encode($context, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ];
 
-        return new ChatRequest($system, $messages);
+        return new ChatRequest($system, $messages, $storeId);
     }
 }
