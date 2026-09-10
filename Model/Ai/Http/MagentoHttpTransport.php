@@ -16,7 +16,8 @@ class MagentoHttpTransport implements HttpTransportInterface
     public function __construct(
         private readonly CurlFactory $curlFactory,
         private readonly LoggerInterface $logger
-    ) {}
+    ) {
+    }
 
     public function post(string $url, array $headers, array $payload, int $timeout, int $maxBytes): array
     {

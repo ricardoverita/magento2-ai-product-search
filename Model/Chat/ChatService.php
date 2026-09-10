@@ -27,7 +27,8 @@ class ChatService
         private readonly CandidateValidator $candidateValidator,
         private readonly ProductCardMapper $productCardMapper,
         private readonly ResolverInterface $localeResolver
-    ) {}
+    ) {
+    }
 
     public function execute(string $message, mixed $history, int $storeId, string $sessionId): StorefrontResponse
     {

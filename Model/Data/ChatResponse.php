@@ -11,6 +11,13 @@ final class ChatResponse
     ) {
     }
 
-    public function getAnswer(): string { return $this->answer; }
-    public function getProductIds(): array { return $this->productIds; }
+    public function getAnswer(): string
+    {
+        return $this->answer;
+    }
+
+    public function getProductIds(): array
+    {
+        return $this->productIds;
+    }
 }

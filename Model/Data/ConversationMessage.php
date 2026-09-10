@@ -14,8 +14,15 @@ final class ConversationMessage
         }
     }
 
-    public function getRole(): string { return $this->role; }
-    public function getContent(): string { return $this->content; }
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    public function getContent(): string
+    {
+        return $this->content;
+    }
 
     public function toArray(): array
     {

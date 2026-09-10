@@ -11,8 +11,15 @@ final class StorefrontResponse
     ) {
     }
 
-    public function getAnswer(): string { return $this->answer; }
-    public function getProducts(): array { return $this->products; }
+    public function getAnswer(): string
+    {
+        return $this->answer;
+    }
+
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
 
     public function toArray(): array
     {

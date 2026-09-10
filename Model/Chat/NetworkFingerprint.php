@@ -12,7 +12,8 @@ class NetworkFingerprint
     public function __construct(
         private readonly RemoteAddress $remoteAddress,
         private readonly DeploymentConfig $deploymentConfig
-    ) {}
+    ) {
+    }
 
     public function create(): string
     {

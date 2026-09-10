@@ -1,4 +1,6 @@
 <?php
 declare(strict_types=1);
 namespace Vera\SearchAI\Model\Ai\Exception;
-class ProviderConfigurationException extends ProviderException {}
+class ProviderConfigurationException extends ProviderException
+{
+}

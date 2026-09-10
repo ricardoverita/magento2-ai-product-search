@@ -12,7 +12,18 @@ final class ChatRequest
     ) {
     }
 
-    public function getSystemPrompt(): string { return $this->systemPrompt; }
-    public function getMessages(): array { return $this->messages; }
-    public function getStoreId(): ?int { return $this->storeId; }
+    public function getSystemPrompt(): string
+    {
+        return $this->systemPrompt;
+    }
+
+    public function getMessages(): array
+    {
+        return $this->messages;
+    }
+
+    public function getStoreId(): ?int
+    {
+        return $this->storeId;
+    }
 }

@@ -13,8 +13,6 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/ricardoverita",
-        "source": "https://github.com/ricardoverita",
         "docs": "https://veradesarrollo.com"
     },
     "require": {
@@ -52,4 +50,3 @@
         "sort-packages": true
     }
 }
-

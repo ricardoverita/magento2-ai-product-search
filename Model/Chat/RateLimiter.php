@@ -21,7 +21,8 @@ class RateLimiter
         private readonly DateTime $dateTime,
         private readonly SearchAIConfig $config,
         private readonly LoggerInterface $logger
-    ) {}
+    ) {
+    }
 
     public function consume(
         int $storeId,

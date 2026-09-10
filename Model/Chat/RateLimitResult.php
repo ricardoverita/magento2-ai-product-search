@@ -6,7 +6,16 @@ final class RateLimitResult
     public function __construct(
         private readonly bool $allowed,
         private readonly int $retryAfter = 0
-    ) {}
-    public function isAllowed(): bool { return $this->allowed; }
-    public function getRetryAfter(): int { return $this->retryAfter; }
+    ) {
+    }
+
+    public function isAllowed(): bool
+    {
+        return $this->allowed;
+    }
+
+    public function getRetryAfter(): int
+    {
+        return $this->retryAfter;
+    }
 }

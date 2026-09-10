@@ -12,7 +12,8 @@ abstract class AbstractProvider
         protected readonly SearchAIConfig $config,
         protected readonly HttpTransportInterface $transport,
         protected readonly StructuredResponseDecoder $decoder
-    ) {}
+    ) {
+    }
     protected function timeout(ChatRequest $request): int
     {
         return $this->config->getProviderTimeout($request->getStoreId());
@@ -40,5 +41,8 @@ abstract class AbstractProvider
             'additionalProperties' => false,
         ];
     }
-    protected function messages(ChatRequest $request): array { return $request->getMessages(); }
+    protected function messages(ChatRequest $request): array
+    {
+        return $request->getMessages();
+    }
 }

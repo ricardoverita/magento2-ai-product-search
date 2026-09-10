@@ -29,7 +29,8 @@ class Send implements HttpPostActionInterface, CsrfAwareActionInterface
         private readonly SessionManagerInterface $session,
         private readonly ChatService $chatService,
         private readonly LoggerInterface $logger
-    ) {}
+    ) {
+    }
 
     public function execute(): Json
     {
@@ -46,6 +47,9 @@ class Send implements HttpPostActionInterface, CsrfAwareActionInterface
 
         try {
             $historyJson = (string) $this->request->getParam('history', '[]');
+            if (strlen($historyJson) > 20000) {
+                throw new InvalidRequestException('History is too large.');
+            }
             $history = json_decode($historyJson, true, 64, JSON_THROW_ON_ERROR);
             $response = $this->chatService->execute(
                 (string) $this->request->getParam('message', ''),
