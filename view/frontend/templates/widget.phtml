@@ -1,0 +1,49 @@
+<?php
+/**
+ * SearchAI storefront widget.
+ *
+ * @var \Vera\SearchAI\Block\Widget $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+<div class="vera-searchai"
+     data-mage-init="<?= $escaper->escapeHtmlAttr($block->getMageInitJson()) ?>">
+    <button class="vera-searchai__launcher"
+            type="button"
+            aria-expanded="false"
+            aria-controls="vera-searchai-panel"
+            aria-label="<?= $escaper->escapeHtmlAttr(__('Open AI shopping assistant')) ?>">
+        <span aria-hidden="true">✦</span>
+    </button>
+
+    <section class="vera-searchai__panel"
+             id="vera-searchai-panel"
+             role="dialog"
+             aria-modal="false"
+             aria-labelledby="vera-searchai-title"
+             hidden>
+        <header class="vera-searchai__header">
+            <h2 class="vera-searchai__title" id="vera-searchai-title"></h2>
+            <button class="vera-searchai__close"
+                    type="button"
+                    aria-label="<?= $escaper->escapeHtmlAttr(__('Close assistant')) ?>">×</button>
+        </header>
+        <div class="vera-searchai__messages"
+             role="log"
+             aria-live="polite"
+             aria-relevant="additions"></div>
+        <p class="vera-searchai__status" role="status"></p>
+        <form class="vera-searchai__form">
+            <label class="vera-searchai__visually-hidden" for="vera-searchai-message">
+                <?= $escaper->escapeHtml(__('Message')) ?>
+            </label>
+            <textarea class="vera-searchai__input"
+                      id="vera-searchai-message"
+                      rows="2"
+                      required></textarea>
+            <button class="vera-searchai__send" type="submit">
+                <?= $escaper->escapeHtml(__('Send')) ?>
+            </button>
+        </form>
+    </section>
+</div>

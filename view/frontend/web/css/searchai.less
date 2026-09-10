@@ -1,0 +1,199 @@
+.vera-searchai {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 900;
+
+    &__launcher,
+    &__send,
+    &__close,
+    &__retry {
+        cursor: pointer;
+    }
+
+    &__launcher {
+        width: 56px;
+        height: 56px;
+        border: 0;
+        border-radius: 50%;
+        color: #fff;
+        background: #172b4d;
+        box-shadow: 0 6px 20px fade(#000, 22%);
+        font-size: 24px;
+    }
+
+    &__panel {
+        position: absolute;
+        right: 0;
+        bottom: 68px;
+        display: flex;
+        flex-direction: column;
+        width: 380px;
+        max-height: min(620px, calc(100vh - 120px));
+        overflow: hidden;
+        border: 1px solid #d8dee8;
+        border-radius: 14px;
+        background: #fff;
+        box-shadow: 0 12px 40px fade(#000, 22%);
+    }
+
+    &__panel[hidden] {
+        display: none;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 16px;
+        color: #fff;
+        background: #172b4d;
+    }
+
+    &__title {
+        margin: 0;
+        color: inherit;
+        font-size: 18px;
+    }
+
+    &__close {
+        border: 0;
+        color: inherit;
+        background: transparent;
+        font-size: 26px;
+        line-height: 1;
+    }
+
+    &__messages {
+        min-height: 220px;
+        padding: 16px;
+        overflow-y: auto;
+        background: #f5f7fa;
+    }
+
+    &__message {
+        max-width: 90%;
+        margin: 0 0 12px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: #fff;
+
+        p {
+            margin: 0;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        &--user {
+            margin-left: auto;
+            color: #fff;
+            background: #2457a7;
+        }
+    }
+
+    &__product {
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        gap: 10px;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #d8dee8;
+
+        img {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+            background: #fff;
+        }
+
+        h3 {
+            margin: 0 0 4px;
+            font-size: 14px;
+        }
+    }
+
+    &__price {
+        font-weight: 700;
+    }
+
+    &__status {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        min-height: 20px;
+        margin: 0;
+        padding: 4px 14px;
+        color: #7a1f1f;
+        background: #fff;
+        font-size: 12px;
+    }
+
+    &__form {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+        padding: 12px;
+        border-top: 1px solid #d8dee8;
+        background: #fff;
+    }
+
+    &__input {
+        min-height: 44px;
+        max-height: 120px;
+        resize: vertical;
+    }
+
+    &__send {
+        border: 0;
+        border-radius: 6px;
+        padding: 0 16px;
+        color: #fff;
+        background: #2457a7;
+    }
+
+    &__visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    button:focus-visible,
+    textarea:focus-visible,
+    a:focus-visible {
+        outline: 3px solid #ffbf47;
+        outline-offset: 2px;
+    }
+
+    &--sending {
+        opacity: .88;
+    }
+}
+
+@media (max-width: 479px) {
+    .vera-searchai {
+        right: 12px;
+        bottom: 12px;
+
+        &__panel {
+            position: fixed;
+            right: 8px;
+            bottom: 80px;
+            left: 8px;
+            width: auto;
+            max-height: calc(100vh - 96px);
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .vera-searchai * {
+        scroll-behavior: auto;
+        transition: none;
+    }
+}
