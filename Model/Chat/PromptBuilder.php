@@ -28,6 +28,8 @@ class PromptBuilder
             'Answer concisely in the customer language when practical. Store locale: ' . $locale . '.',
             'Never invent product names, SKUs, prices, discounts, availability, URLs, or images.',
             'If no supplied product is suitable, say so clearly.',
+            'If the request is not about finding products, politely say you can only help '
+            . 'find products in this store and return an empty product_ids array.',
             'Never claim to complete a purchase.',
             $guidance === '' ? '' : 'Merchant guidance: ' . $guidance,
             'Only recommend product IDs from CATALOG_CANDIDATES.',
