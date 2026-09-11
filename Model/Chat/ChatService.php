@@ -20,6 +20,7 @@ class ChatService
         private readonly RequestValidator $requestValidator,
         private readonly RateLimiter $rateLimiter,
         private readonly NetworkFingerprint $networkFingerprint,
+        private readonly QueryScopeGuard $scopeGuard,
         private readonly ProductRetrieverInterface $productRetriever,
         private readonly ProductContextBuilder $contextBuilder,
         private readonly PromptBuilder $promptBuilder,
@@ -44,6 +45,13 @@ class ChatService
         );
         if (!$rate->isAllowed()) {
             throw new RateLimitExceededException((string) $rate->getRetryAfter());
+        }
+
+        if ($this->scopeGuard->isOutOfScope($message)) {
+            return new StorefrontResponse(
+                (string) __('I can only help you find products in this store.'),
+                []
+            );
         }
 
         $candidates = $this->productRetriever->retrieve(
