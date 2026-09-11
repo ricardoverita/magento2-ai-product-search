@@ -20,6 +20,9 @@ final class QueryScopeGuard
     private const PRODUCT_NOUN =
         '(?:producto|product|articulo|item|libro|book|tutorial|curso|course|manual|'
         . 'guide|guia|camiseta|shirt|zapato|shoes?|laptop|telefono|phone)';
+    private const MIXED_OFF_TOPIC_CUE =
+        '(?:explain|explicame|reveal|revela|tell me (?:the )?(?:capital|weather)|'
+        . 'dime (?:la|el) (?:capital|clima)|system prompt|instrucciones del sistema)';
 
     /**
      * Detects clearly non-shopping requests without making another AI call.
@@ -33,8 +36,11 @@ final class QueryScopeGuard
             return false;
         }
 
-        if ($this->hasShoppingIntent($normalized)) {
+        if ($this->hasShoppingIntent($normalized) && !$this->hasMixedOffTopicRequest($normalized)) {
             return false;
+        }
+        if ($this->hasMixedOffTopicRequest($normalized)) {
+            return true;
         }
 
         $language = '(?<![a-z0-9])' . self::PROGRAMMING_LANGUAGES . '(?![a-z0-9])';
@@ -59,6 +65,11 @@ final class QueryScopeGuard
         $intent = '\b' . self::SHOPPING_INTENT . '\b';
         $product = '\b' . self::PRODUCT_NOUN . '\b';
         return preg_match('/' . $intent . '.*' . $product . '|' . $product . '.*' . $intent . '/u', $query) === 1;
+    }
+
+    private function hasMixedOffTopicRequest(string $query): bool
+    {
+        return preg_match('/' . self::MIXED_OFF_TOPIC_CUE . '/u', $query) === 1;
     }
 
     private function normalize(string $query): string
