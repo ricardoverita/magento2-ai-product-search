@@ -20,10 +20,6 @@ final class QueryScopeGuard
     private const PRODUCT_NOUN =
         '(?:producto|product|articulo|item|libro|book|tutorial|curso|course|manual|'
         . 'guide|guia|camiseta|shirt|zapato|shoes?|laptop|telefono|phone)';
-    private const MIXED_OFF_TOPIC_CUE =
-        '(?:explain|explicame|reveal|revela|tell me (?:the )?(?:capital|weather)|'
-        . 'dime (?:la|el) (?:capital|clima)|system prompt|instrucciones del sistema)';
-
     /**
      * Detects clearly non-shopping requests without making another AI call.
      * Product names that happen to contain a language name remain allowed unless
@@ -36,18 +32,23 @@ final class QueryScopeGuard
             return false;
         }
 
-        if ($this->hasShoppingIntent($normalized) && !$this->hasMixedOffTopicRequest($normalized)) {
-            return false;
-        }
         if ($this->hasMixedOffTopicRequest($normalized)) {
             return true;
         }
+        if ($this->hasShoppingIntent($normalized)) {
+            return false;
+        }
 
+        return $this->isClearlyOutOfScope($normalized);
+    }
+
+    private function isClearlyOutOfScope(string $query): bool
+    {
         $language = '(?<![a-z0-9])' . self::PROGRAMMING_LANGUAGES . '(?![a-z0-9])';
         $context = '\b' . self::PROGRAMMING_CONTEXT . '\b';
         $programmingPattern = '/' . $language . '.*' . $context . '|'
             . $context . '.*' . $language . '/u';
-        if (preg_match($programmingPattern, $normalized) === 1) {
+        if (preg_match($programmingPattern, $query) === 1) {
             return true;
         }
 
@@ -55,8 +56,10 @@ final class QueryScopeGuard
             '/^(?:cual es la capital|quien es(?: el| la)?|cuanto es|resuelve|que tiempo hara|'
             . 'como estara el clima|pronostico|noticias|what is the capital|who is(?: the| a)?|'
             . 'how much is|solve|what(?: will)? the weather|weather forecast|latest news|'
-            . 'dame una receta|give me a recipe|sintomas de|symptoms of|diagnostico de|diagnosis of)\b/u',
-            $normalized
+            . 'dame una receta|give me a recipe|sintomas de|symptoms of|diagnostico de|diagnosis of|'
+            . '(?:tell me|dime) (?:the |el |la )?(?:capital|weather|clima|latest news|noticias)|'
+            . '(?:reveal|revela).*(?:system prompt|instrucciones del sistema))\b/u',
+            $query
         ) === 1;
     }
 
@@ -69,7 +72,19 @@ final class QueryScopeGuard
 
     private function hasMixedOffTopicRequest(string $query): bool
     {
-        return preg_match('/' . self::MIXED_OFF_TOPIC_CUE . '/u', $query) === 1;
+        $parts = preg_split('/\b(?:and|y|but|pero)\b|[,;]+/u', $query) ?: [];
+        if (count($parts) < 2) {
+            return false;
+        }
+
+        foreach ($parts as $part) {
+            $part = trim($part);
+            if ($part !== '' && !$this->hasShoppingIntent($part) && $this->isClearlyOutOfScope($part)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function normalize(string $query): string
