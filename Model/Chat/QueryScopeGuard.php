@@ -13,6 +13,13 @@ final class QueryScopeGuard
         . 'command(?:s)?|sintaxis|syntax|funcion(?:es)?|function(?:s)?|'
         . 'clase(?:s)?|class(?:es)?|tutorial|algoritmo|algorithm|'
         . 'framework|libreria|librar(?:y|ies)|api)';
+    private const SHOPPING_INTENT =
+        '(?:busco|buscando|quiero|necesito|comprar|compra|adquirir|venden|tienen|'
+        . 'mostrar|muestrame|recomiendame|looking for|need|want|buy|purchase|'
+        . 'do you have|show me|recommend)';
+    private const PRODUCT_NOUN =
+        '(?:producto|product|articulo|item|libro|book|tutorial|curso|course|manual|'
+        . 'guide|guia|camiseta|shirt|zapato|shoes?|laptop|telefono|phone)';
 
     /**
      * Detects clearly non-shopping requests without making another AI call.
@@ -23,6 +30,10 @@ final class QueryScopeGuard
     {
         $normalized = $this->normalize($query);
         if ($normalized === '') {
+            return false;
+        }
+
+        if ($this->hasShoppingIntent($normalized)) {
             return false;
         }
 
@@ -41,6 +52,13 @@ final class QueryScopeGuard
             . 'dame una receta|give me a recipe|sintomas de|symptoms of|diagnostico de|diagnosis of)\b/u',
             $normalized
         ) === 1;
+    }
+
+    private function hasShoppingIntent(string $query): bool
+    {
+        $intent = '\b' . self::SHOPPING_INTENT . '\b';
+        $product = '\b' . self::PRODUCT_NOUN . '\b';
+        return preg_match('/' . $intent . '.*' . $product . '|' . $product . '.*' . $intent . '/u', $query) === 1;
     }
 
     private function normalize(string $query): string
